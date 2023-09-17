@@ -1,0 +1,35 @@
+﻿using Assets.Scripts.Runtime.Managers;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace Assets.Scripts.Runtime.Commands.Stack
+{
+    public class ItemRemoverOnStackCommand
+    {
+        private StackManager _stackManager;
+        private List<GameObject> _collectableStack;
+        private Transform _levelHolder;
+
+        public ItemRemoverOnStackCommand(StackManager stackManager, ref List<GameObject> collectableStack)
+        {
+            _stackManager = stackManager;
+            _collectableStack = collectableStack;
+            _levelHolder = GameObject.Find("LevelHolder").transform;
+        }
+
+        public void Execute(GameObject collectableGameObject)
+        {
+            int index = _collectableStack.IndexOf(collectableGameObject);
+            //listenin son elemanin indexi
+            int last = _collectableStack.Count - 1;
+            //para atmye falan eklediginde veya enegele carpica
+            collectableGameObject.transform.SetParent(_levelHolder.transform.GetChild(0));
+            collectableGameObject.SetActive(false);
+
+            _stackManager.StackJumperCommand.Execute(last, index);
+            _collectableStack.RemoveAt(index);
+            _collectableStack.TrimExcess();
+            _stackManager.StackTypeUpdaterCommand.Execute();
+        }
+    }
+}
