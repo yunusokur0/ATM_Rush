@@ -13,7 +13,7 @@ namespace Assets.Scripts.Runtime.Managers
 
         private void Awake()
         {
-            _money = GetMoneyValue();
+        //    _money = GetMoneyValue();
         }
 
         private void OnEnable()
@@ -60,11 +60,12 @@ namespace Assets.Scripts.Runtime.Managers
         {
             _stackValueMultiplier = CoreGameSignals.Instance.onGetIncomeLevel();
         }
-        private int GetMoneyValue()
-        {
-            if (!ES3.FileExists()) return 0;
-            return (int)(ES3.KeyExists("Money") ? ES3.Load<int>("Money") : 0);
-        }
+        //private int GetMoneyValue()
+        //{
+        //    //if (!ES3.FileExists()) return 0;
+        //    //return (int)(ES3.KeyExists("Money") ? ES3.Load<int>("Money") : 0);
+        //    Debug.Log("yunus");
+        //}
 
         private void RefreshMoney()
         {

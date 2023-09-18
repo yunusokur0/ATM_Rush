@@ -96,7 +96,7 @@ namespace Assets.Scripts.Runtime.Managers
             for (int i = 0; i < fakeMoneyCount; i++)
             {
                 var ob = Instantiate(fakeMoneyObject, fakePlayer);
-                ob.transform.localPosition = new Vector3(0, -i * 2.75f, -13f);
+                ob.transform.localPosition = new Vector3(0, -i * 2.10f, -13f);
             }
         }
 
