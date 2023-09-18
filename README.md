@@ -42,4 +42,3 @@ Oyun Mekanikleri
 
 &#8226; Change Mesh
 
-&#8226; Obstacle Animation and Collision
