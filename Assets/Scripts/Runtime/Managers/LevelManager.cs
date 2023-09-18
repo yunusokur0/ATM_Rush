@@ -29,6 +29,10 @@ namespace Assets.Scripts.Runtime.Managers
         {
             SubscribeEvents();
         }
+        private void Start()
+        {
+            CoreGameSignals.Instance.onLevelInitialize?.Invoke(_currentLevel);
+        }
 
         private void SubscribeEvents()
         {
@@ -37,6 +41,33 @@ namespace Assets.Scripts.Runtime.Managers
             SaveSignals.Instance.onGetLevelID += GetLevelID;
             CoreGameSignals.Instance.onNextLevel += OnNextLevel;
             CoreGameSignals.Instance.onRestartLevel += OnRestartLevel;
+        }
+
+        private byte GetLevelID()
+        {
+            return _currentLevel;
+        }
+        private byte GetActiveLevel()
+        {
+            if (!ES3.FileExists()) return 0;
+            return (byte)(ES3.KeyExists("Level") ? ES3.Load<int>("Level") % totalLevelCount : 0);
+        }
+
+        private void OnNextLevel()
+        {
+            _currentLevel++;
+          
+            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
+            CoreGameSignals.Instance.onLevelInitialize?.Invoke(_currentLevel);
+            SaveSignals.Instance.onSaveGameData?.Invoke();
+        }
+
+        private void OnRestartLevel()
+        {
+           
+            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
+            CoreGameSignals.Instance.onLevelInitialize?.Invoke(_currentLevel);
+            SaveSignals.Instance.onSaveGameData?.Invoke();
         }
 
         private void UnsubscribeEvents()
@@ -51,35 +82,6 @@ namespace Assets.Scripts.Runtime.Managers
         private void OnDisable()
         {
             UnsubscribeEvents();
-        }
-        private byte GetLevelID()
-        {
-            return _currentLevel;
-        }
-        private byte GetActiveLevel()
-        {
-            if (!ES3.FileExists()) return 0;
-            return (byte)(ES3.KeyExists("Level") ? ES3.Load<int>("Level") % totalLevelCount : 0);
-        }
-
-        private void OnNextLevel()
-        {
-            _currentLevel++;
-            SaveSignals.Instance.onSaveGameData?.Invoke();
-            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
-            CoreGameSignals.Instance.onLevelInitialize?.Invoke(_currentLevel);
-        }
-
-        private void OnRestartLevel()
-        {
-            SaveSignals.Instance.onSaveGameData?.Invoke();
-            CoreGameSignals.Instance.onClearActiveLevel?.Invoke();
-            CoreGameSignals.Instance.onLevelInitialize?.Invoke(_currentLevel);
-        }
-
-        private void Start()
-        {
-            CoreGameSignals.Instance.onLevelInitialize?.Invoke(_currentLevel);
         }
     }
 }

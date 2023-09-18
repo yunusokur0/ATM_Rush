@@ -45,16 +45,6 @@ public class InputManager : MonoBehaviour
         isReadyForTouch = false;
         isFirstTimeTouchTaken = false;
     }
-    private void UnsubscribeEvents()
-    {
-        CoreGameSignals.Instance.onPlay -= OnPlay;
-        CoreGameSignals.Instance.onReset -= OnReset;
-    }
-
-    private void OnDisable()
-    {
-        UnsubscribeEvents();
-    }
 
     private void Update()
     {
@@ -92,7 +82,7 @@ public class InputManager : MonoBehaviour
                         //Xeksendeki hiz,Xeksendeki Hiz,gidecegi hiz,  , nekadar Hizda yavaslayacak
                         _moveVector.x = Mathf.SmoothDamp(_moveVector.x, 0f, ref _currentVelocity,
                             _data.ClampSpeed);
-                    
+
                     _mousePosition = Input.mousePosition;
 
                     InputSignals.Instance.onInputDragged?.Invoke(new HorizontalInputParams()
@@ -123,5 +113,15 @@ public class InputManager : MonoBehaviour
         EventSystem.current.RaycastAll(eventData, results);
         //eðer results listesinde en az bir sonuç varsa (yani fare veya dokunmatik giriþ UI öðeleri üzerindeyse), true deðeri döner
         return results.Count > 0;
+    }
+    private void UnsubscribeEvents()
+    {
+        CoreGameSignals.Instance.onPlay -= OnPlay;
+        CoreGameSignals.Instance.onReset -= OnReset;
+    }
+
+    private void OnDisable()
+    {
+        UnsubscribeEvents();
     }
 }

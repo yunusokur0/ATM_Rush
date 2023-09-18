@@ -25,7 +25,6 @@ namespace Assets.Scripts.Runtime.Managers
         {
             UnsubscribeEvents();
         }
-
         private void SaveData()
         {
             OnSaveGame(
@@ -38,7 +37,6 @@ namespace Assets.Scripts.Runtime.Managers
                 }
             );
         }
-
         private void OnSaveGame(SaveGameDataParams saveDataParams)
         {
             if (saveDataParams.Level != null) ES3.Save("Level", saveDataParams.Level);

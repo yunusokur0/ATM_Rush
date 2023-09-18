@@ -6,10 +6,10 @@ namespace Assets.Scripts.Runtime.Managers
 {
     public class ScoreManager : MonoBehaviour
     {
-         private int _money;
-         private int _stackValueMultiplier;
-         private int _scoreCache = 0;
-         private int _atmScoreValue = 0;
+        private int _money;
+        private int _stackValueMultiplier;
+        private int _scoreCache = 0;
+        private int _atmScoreValue = 0;
 
         private void Awake()
         {
@@ -20,7 +20,11 @@ namespace Assets.Scripts.Runtime.Managers
         {
             SubscribeEvents();
         }
-
+        private void Start()
+        {
+            OnSetValueMultiplier();
+            RefreshMoney();
+        }
         private void SubscribeEvents()
         {
             ScoreSignals.Instance.onSendMoney += OnSendMoney;
@@ -49,14 +53,30 @@ namespace Assets.Scripts.Runtime.Managers
         private void OnSetAtmScore(int atmValues)
         {
             _atmScoreValue += atmValues * _stackValueMultiplier;
-            //AtmSignals.Instance.onSetAtmScoreText?.Invoke(_atmScoreValue);
+            AtmSignals.Instance.onSetAtmScoreText?.Invoke(_atmScoreValue);
         }
 
         private void OnSetValueMultiplier()
         {
             _stackValueMultiplier = CoreGameSignals.Instance.onGetIncomeLevel();
         }
+        private int GetMoneyValue()
+        {
+            if (!ES3.FileExists()) return 0;
+            return (int)(ES3.KeyExists("Money") ? ES3.Load<int>("Money") : 0);
+        }
 
+        private void RefreshMoney()
+        {
+            _money += (int)(_scoreCache * ScoreSignals.Instance.onGetMultiplier());
+            UISignals.Instance.onSetMoneyValue?.Invoke(_money);
+        }
+
+        private void OnReset()
+        {
+            _scoreCache = 0;
+            _atmScoreValue = 0;
+        }
         private void UnSubscribeEvents()
         {
             ScoreSignals.Instance.onSendMoney -= OnSendMoney;
@@ -74,30 +94,6 @@ namespace Assets.Scripts.Runtime.Managers
         private void OnDisable()
         {
             UnSubscribeEvents();
-        }
-
-        private void Start()
-        {
-            OnSetValueMultiplier();
-            RefreshMoney();
-        }
-
-        private int GetMoneyValue()
-        {
-            if (!ES3.FileExists()) return 0;
-            return (int)(ES3.KeyExists("Money") ? ES3.Load<int>("Money") : 0);
-        }
-
-        private void RefreshMoney()
-        {
-            _money += (int)(_scoreCache * ScoreSignals.Instance.onGetMultiplier());
-            UISignals.Instance.onSetMoneyValue?.Invoke(_money);
-        }
-
-        private void OnReset()
-        {
-            _scoreCache = 0;
-            _atmScoreValue = 0;
         }
     }
 }

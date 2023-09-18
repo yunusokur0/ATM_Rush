@@ -11,9 +11,8 @@ namespace Assets.Scripts.Runtime.Managers
     {
         [SerializeField] private CinemachineStateDrivenCamera stateDrivenCamera;
         [SerializeField] private Animator animator;
-
-        private float3 _initialPosition;
-
+       [SerializeField] private float3 _initialPosition;
+        //public GameObject fakeplayer;
         private void Awake()
         {
             Init();
@@ -32,9 +31,7 @@ namespace Assets.Scripts.Runtime.Managers
         private void SubscribeEvents()
         {
             CoreGameSignals.Instance.onReset += OnReset;
-            //hedef belirleme
             CameraSignals.Instance.onSetCinemachineTarget += OnSetCinemachineTarget;
-            //kamera belirleme
             CameraSignals.Instance.onChangeCameraState += OnChangeCameraState;
         }
 
@@ -51,8 +48,8 @@ namespace Assets.Scripts.Runtime.Managers
                 case CameraTargetState.FakePlayer:
                     {
                         stateDrivenCamera.Follow = null;
-                        //var fakePlayer = FindObjectOfType<WallCheckController>().transform.parent.transform;
-                        //stateDrivenCamera.Follow = fakePlayer;
+                        var fakePlayer = FindObjectOfType<WallCheckController>().transform.parent.transform;
+                        stateDrivenCamera.Follow = fakePlayer;
                     }
                     break;
                 default:
@@ -77,8 +74,7 @@ namespace Assets.Scripts.Runtime.Managers
             UnsubscribeEvents();
         }
 
-
-        private void OnReset()
+       private void OnReset()
         {
             CameraSignals.Instance.onChangeCameraState?.Invoke(CameraStates.Initial);
             stateDrivenCamera.Follow = null;

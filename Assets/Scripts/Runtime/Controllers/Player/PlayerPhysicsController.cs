@@ -17,6 +17,7 @@ namespace Assets.Scripts.Runtime.Controllers.Player
         {
             if (other.CompareTag(_obstacle))
             {
+                //geriye dogru sekme
                 managerRigidbody.transform.DOMoveZ(managerRigidbody.transform.position.z - 10f, 1f)
                     .SetEase(Ease.OutBack);
                 return;

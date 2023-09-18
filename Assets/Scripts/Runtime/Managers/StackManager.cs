@@ -89,7 +89,7 @@ namespace Assets.Scripts.Runtime.Managers
 
         private void OnInteractionWithATM(GameObject collectableGameObject)
         {
-            ScoreSignals.Instance.onSetAtmScore?.Invoke((int)collectableGameObject.GetComponent<CollectableManager>()
+            ScoreSignals.Instance.onSetAtmScore?.Invoke(collectableGameObject.GetComponent<CollectableManager>()
                 .GetCurrentValue() + 1);
             if (LastCheck == false)
             {
@@ -114,6 +114,13 @@ namespace Assets.Scripts.Runtime.Managers
             _stackInitializerCommand.Execute();
         }
 
+        private void OnReset()
+        {
+            LastCheck = false;
+            _collectableStack.Clear();
+            _collectableStack.TrimExcess();
+        }
+
         private void UnSubscribeEvents()
         {
             StackSignals.Instance.onInteractionCollectable -= OnInteractionWithCollectable;
@@ -130,13 +137,6 @@ namespace Assets.Scripts.Runtime.Managers
         private void OnDisable()
         {
             UnSubscribeEvents();
-        }
-
-        private void OnReset()
-        {
-            LastCheck = false;
-            _collectableStack.Clear();
-            _collectableStack.TrimExcess();
         }
     }
 }

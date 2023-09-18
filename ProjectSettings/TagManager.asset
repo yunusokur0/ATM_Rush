@@ -10,6 +10,8 @@ TagManager:
   - Conveyor
   - Collected
   - Gate
+  - FakePlayer
+  - Wall
   layers:
   - Default
   - TransparentFX

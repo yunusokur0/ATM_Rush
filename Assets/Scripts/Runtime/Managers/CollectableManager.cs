@@ -12,7 +12,6 @@ namespace Assets.Scripts.Runtime.Managers
         [SerializeField] private CollectablePhysicsController physicsController;
         private CollectableData _data;
         private byte _currentValue = 0;
-
         private readonly string _collectableDataPath = "Data/CD_Collectable";
 
 
@@ -28,7 +27,6 @@ namespace Assets.Scripts.Runtime.Managers
         {
             meshController.SetMeshData(_data.MeshData);
         }
-
 
         internal void CollectableUpgrade(int value)
         {

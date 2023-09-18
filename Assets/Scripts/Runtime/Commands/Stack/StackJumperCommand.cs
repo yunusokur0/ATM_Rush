@@ -30,7 +30,7 @@ namespace Assets.Scripts.Runtime.Commands.Stack
                     new Vector3(
                         //yatayda rastgele bir yönde zıplatır
                         Random.Range(-_data.JumpItemsClampX, _data.JumpItemsClampX + 1),
-                        1.12f,
+                        0.5f,
                         _collectableStack[i].transform.position.z + Random.Range(10, 15)),
                     // nesnenin zıplama kuvvetini belirler
                     _data.JumpForce,

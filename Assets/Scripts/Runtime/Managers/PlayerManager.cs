@@ -33,7 +33,6 @@ namespace Assets.Scripts.Runtime.Managers
         private void OnEnable()
         {
             SubscribeEvents();
-            CameraSignals.Instance.onSetCinemachineTarget?.Invoke(CameraTargetState.Player);
         }
 
         private void SubscribeEvents()
@@ -80,7 +79,23 @@ namespace Assets.Scripts.Runtime.Managers
             movementController.OnReset();
             animationController.OnReset();
         }
+        internal void SetStackPosition()
+        {
+            var position = transform.position;
+            Vector2 pos = new Vector2(position.x, position.z);
+            StackSignals.Instance.onStackFollowPlayer?.Invoke(pos);
+        }
 
+        private IEnumerator WaitForFinal()
+        {
+            //sondaki yere carptiginda player durur
+            PlayerSignals.Instance.onChangePlayerAnimationState?.Invoke(PlayerAnimationStates.Idle);
+            yield return new WaitForSeconds(2f);
+            //2 saniye sonra obje deactive olur
+            gameObject.SetActive(false);
+
+            CoreGameSignals.Instance.onMiniGameStart?.Invoke();
+        }
         private void UnSubscribeEvents()
         {
             InputSignals.Instance.onInputTaken -= () => PlayerSignals.Instance.onMoveConditionChanged?.Invoke(true);
@@ -100,24 +115,6 @@ namespace Assets.Scripts.Runtime.Managers
         private void OnDisable()
         {
             UnSubscribeEvents();
-        }
-
-        internal void SetStackPosition()
-        {
-            var position = transform.position;
-            Vector2 pos = new Vector2(position.x, position.z);
-            StackSignals.Instance.onStackFollowPlayer?.Invoke(pos);
-        }
-
-        private IEnumerator WaitForFinal()
-        {
-            //sondaki yere carptiginda player durur
-            PlayerSignals.Instance.onChangePlayerAnimationState?.Invoke(PlayerAnimationStates.Idle);
-            yield return new WaitForSeconds(2f);
-            //2 saniye sonra obje deactive olur
-            gameObject.SetActive(false);
-
-            CoreGameSignals.Instance.onMiniGameStart?.Invoke();
         }
     }
 }
