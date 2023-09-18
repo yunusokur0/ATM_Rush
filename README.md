@@ -42,3 +42,13 @@ Oyun Mekanikleri
 
 &#8226; Change Mesh
 
+---
+Gameplay    
+====================
+
+
+![Adsız tasarım (3)](https://github.com/yunusokur0/ATM_Rush/assets/114630722/29f578f3-6902-42bb-bcf8-aaa6ac3c840f)
+
+
+
+
