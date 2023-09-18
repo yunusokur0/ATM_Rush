@@ -29,20 +29,6 @@ Kullanılan desenler
 &#8226; EASY SAVE 3
 
 ---
----
-
-Oyun Mekanikleri    
-====================
----
-&#8226; Object Lerp
-
-&#8226; Player Movement
-
-&#8226; Minigame
-
-&#8226; Change Mesh
-
----
 Gameplay    
 ====================
 
