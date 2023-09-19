@@ -11,9 +11,7 @@ namespace Assets.Scripts.Runtime.Data.ValueObject
     [Serializable]
     public struct PlayerMovementData
     {
-        //ileri hiz
         public float ForwardSpeed;
-        //sag sol gitme hizi
         public float SidewaysSpeed;
     }
 }
