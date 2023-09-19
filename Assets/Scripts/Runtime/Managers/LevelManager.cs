@@ -12,7 +12,6 @@ namespace Assets.Scripts.Runtime.Managers
         private LevelLoaderCommand _levelLoader;
         private LevelDestroyerCommand _levelDestroyer;
         private byte _currentLevel;
-        //saveeee
         private void Awake()
         {
             Init();
