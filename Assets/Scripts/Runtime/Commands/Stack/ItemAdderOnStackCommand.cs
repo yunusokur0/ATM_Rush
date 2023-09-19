@@ -19,13 +19,10 @@ namespace Assets.Scripts.Runtime.Commands.Stack
             _data = stackData;
         }
 
-        //listeye yeni para ekler pozunu ve kimin cocuk objesi oalcagini verir
         public void Execute(GameObject collectableGameObject)
         {
-            //eger liste bos ise
             if (_collectableStack.Count <= 0)
             {
-                //koleksiyon nesnesi hemen bu liste içine eklenir 
                 _collectableStack.Add(collectableGameObject);
                 collectableGameObject.transform.SetParent(_stackManager.transform);
                 collectableGameObject.transform.localPosition = new Vector3(0, 0.5f, 0);
