@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Runtime.Commands.Stack
 {
-    //sag sol yapinca paraların yilansi hareketi
     public class StackMoverCommand
     {
         private StackData _data;
@@ -13,20 +12,14 @@ namespace Assets.Scripts.Runtime.Commands.Stack
         {
             _data = stackData;
         }
-
-        //disardan bir directionX degeri ve liste alir
-        //listeyi StackMangerden aliyor 
-        //directionx ise PlayerManager'den alir
         public void Execute(float directionX, List<GameObject> collectableStack)
         {
-            //lerp herekitin baslayacagi ilk obje listedeki ilk objedir
             float direct = Mathf.Lerp(collectableStack[0].transform.localPosition.x, directionX,
                 _data.LerpSpeed);
             collectableStack[0].transform.localPosition = new Vector3(direct, 0.5f, 0);
             StackItemsLerpMove(collectableStack);
         }
 
-        //burasıda lerp yapıyor ama listedeki 2. elemandan basliyor cunki ilk elaman excutede yapiliyor
         private void StackItemsLerpMove(List<GameObject> collectableStack)
         {
             for (int i = 1; i < collectableStack.Count; i++)
