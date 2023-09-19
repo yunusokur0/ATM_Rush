@@ -21,7 +21,6 @@ namespace Assets.Scripts.Runtime.Commands.Stack
 
         public IEnumerator Execute()
         {
-            //son elemanin indexi 
             for (int i = 0; i <= _collectableStack.Count - 1; i++)
             {
                 int index = (_collectableStack.Count - 1) - i;
