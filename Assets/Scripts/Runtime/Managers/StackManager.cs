@@ -10,11 +10,8 @@ namespace Assets.Scripts.Runtime.Managers
 {
     public class StackManager : MonoBehaviour
     {
-        //paranin engele vb carpinca dagilmaasi
         public StackJumperCommand StackJumperCommand;
-        //bu kaldi yarida
         public StackTypeUpdaterCommand StackTypeUpdaterCommand;
-        //para toplama
         public ItemAdderOnStackCommand AdderOnStackCommand;
 
         public bool LastCheck;
@@ -25,13 +22,9 @@ namespace Assets.Scripts.Runtime.Managers
         private List<GameObject> _collectableStack = new List<GameObject>();
 
         private StackMoverCommand _stackMoverCommand;
-        //paranin atm veya engele carpica setactive edilmesi 
         private ItemRemoverOnStackCommand _itemRemoverOnStackCommand;
-        //paralarin buyume animi
         private StackAnimatorCommand _stackAnimatorCommand;
-        //sondaki banka geldiginde yapilacaklar
         private StackInteractionWithConveyorCommand _stackInteractionWithConveyorCommand;
-        //button ile alinan pralari tutar
         private StackInitializerCommand _stackInitializerCommand;
 
         private readonly string _stackDataPath = "Data/CD_Stack";
@@ -76,8 +69,6 @@ namespace Assets.Scripts.Runtime.Managers
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onReset += OnReset;
         }
-
-        //direction player managerden aliyor, playerin xi ve z sini aliyor
         private void OnStackMove(Vector2 direction)
         {
             transform.position = new Vector3(0, gameObject.transform.position.y, direction.y + 2f);
