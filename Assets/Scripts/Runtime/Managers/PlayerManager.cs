@@ -88,10 +88,8 @@ namespace Assets.Scripts.Runtime.Managers
 
         private IEnumerator WaitForFinal()
         {
-            //sondaki yere carptiginda player durur
             PlayerSignals.Instance.onChangePlayerAnimationState?.Invoke(PlayerAnimationStates.Idle);
             yield return new WaitForSeconds(2f);
-            //2 saniye sonra obje deactive olur
             gameObject.SetActive(false);
 
             CoreGameSignals.Instance.onMiniGameStart?.Invoke();
