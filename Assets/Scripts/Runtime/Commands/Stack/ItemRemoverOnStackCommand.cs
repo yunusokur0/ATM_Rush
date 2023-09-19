@@ -20,9 +20,7 @@ namespace Assets.Scripts.Runtime.Commands.Stack
         public void Execute(GameObject collectableGameObject)
         {
             int index = _collectableStack.IndexOf(collectableGameObject);
-            //listenin son elemanin indexi
             int last = _collectableStack.Count - 1;
-            //para atmye falan eklediginde veya enegele carpica
             collectableGameObject.transform.SetParent(_levelHolder.transform.GetChild(0));
             collectableGameObject.SetActive(false);
 
