@@ -52,14 +52,12 @@ public class InputManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && !IsPointerOverUIElement())
         {
-            //ilk basmada true yapiyor
             _isTouching = true;
             InputSignals.Instance.onInputTaken?.Invoke();
             if (!isFirstTimeTouchTaken)
             {
                 isFirstTimeTouchTaken = true;
             }
-            //fare pozunu atýyor
             _mousePosition = Input.mousePosition;
         }
 
@@ -69,8 +67,6 @@ public class InputManager : MonoBehaviour
             {
                 if (_mousePosition != null)
                 {
-                    //                      mevcut fare pozundan onceki fare pozunu arasýndaki fark
-                    //fareyi sürüklediðinizde veya hareket ettirdiðinizde oluþan fare pozisyonu deðiþikliklerini takip etmek için kullanýlýr
                     Vector2 mouseDeltaPos = (Vector2)Input.mousePosition - _mousePosition.Value;
 
 
@@ -79,7 +75,6 @@ public class InputManager : MonoBehaviour
                     else if (mouseDeltaPos.x < -_data.HorizontalInputSpeed)
                         _moveVector.x = -_data.HorizontalInputSpeed / 10f * -mouseDeltaPos.x;
                     else
-                        //Xeksendeki hiz,Xeksendeki Hiz,gidecegi hiz,  , nekadar Hizda yavaslayacak
                         _moveVector.x = Mathf.SmoothDamp(_moveVector.x, 0f, ref _currentVelocity,
                             _data.ClampSpeed);
 
@@ -103,15 +98,11 @@ public class InputManager : MonoBehaviour
 
     private bool IsPointerOverUIElement()
     {
-        //                UI olaylarýný yakalamak ve iþlemek için kullanýlan bir sýnýftýr, mevcut sahnede tanýmlanan olaylarý dinlemek ve iþlemek için kullanýlacak.
         var eventData = new PointerEventData(EventSystem.current);
-        // bu kod, fare pozisyonunu eventData içindeki olay verilerine yazar.
         eventData.position = Input.mousePosition;
-        // Bu liste, fare veya dokunmatik giriþin UI öðeleri ile etkileþimde bulunup bulunmadýðýný kontrol etmek için kullanýlacak.
         var results = new List<RaycastResult>();
-        //tüm fare veya dokunmatik giriþlerinin UI öðeleri üzerinde bir ýþýn (ray) çýkartýlarak neye çarptýðýný kontrol eder. eventData ve results verileri bu iþlev için kullanýlýr ve sonuçlar results listesine eklenir.
         EventSystem.current.RaycastAll(eventData, results);
-        //eðer results listesinde en az bir sonuç varsa (yani fare veya dokunmatik giriþ UI öðeleri üzerindeyse), true deðeri döner
+
         return results.Count > 0;
     }
     private void UnsubscribeEvents()
