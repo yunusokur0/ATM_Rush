@@ -12,7 +12,6 @@ namespace Assets.Scripts.Runtime.Managers
         }
         private void SubscribeEvents()
         {
-            //oyun baslatildiginda
             CoreGameSignals.Instance.onLevelInitialize += OnLevelInitialize;
             CoreGameSignals.Instance.onLevelFailed += OnLevelFailed;
             CoreGameSignals.Instance.onLevelSuccessful += OnLevelSuccessful;
@@ -23,7 +22,6 @@ namespace Assets.Scripts.Runtime.Managers
             CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Level, 0);
             CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Start, 1);
             CoreUISignals.Instance.onOpenPanel?.Invoke(UIPanelTypes.Shop, 2);
-            //level paneldeki level texti
             UISignals.Instance.onSetNewLevelValue?.Invoke(levelValue);
         }
 
