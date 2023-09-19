@@ -11,11 +11,6 @@ namespace Assets.Scripts.Runtime.Managers
         private int _scoreCache = 0;
         private int _atmScoreValue = 0;
 
-        private void Awake()
-        {
-        //    _money = GetMoneyValue();
-        }
-
         private void OnEnable()
         {
             SubscribeEvents();
@@ -60,13 +55,6 @@ namespace Assets.Scripts.Runtime.Managers
         {
             _stackValueMultiplier = CoreGameSignals.Instance.onGetIncomeLevel();
         }
-        //private int GetMoneyValue()
-        //{
-        //    //if (!ES3.FileExists()) return 0;
-        //    //return (int)(ES3.KeyExists("Money") ? ES3.Load<int>("Money") : 0);
-        //    Debug.Log("yunus");
-        //}
-
         private void RefreshMoney()
         {
             _money += (int)(_scoreCache * ScoreSignals.Instance.onGetMultiplier());
