@@ -5,7 +5,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Runtime.Commands.Stack
 {
-    //sondaki banka geldiginde yapilacaklar
     public class StackInteractionWithConveyorCommand
     {
         private StackManager _stackManager;
